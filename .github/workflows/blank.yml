@@ -22,4 +22,4 @@ jobs:
           
       - name: Push to GitLab
         run: |
-          git push --mirror gitlab
+          git push gitlab main
