@@ -1,0 +1,25 @@
+name: Mirror to GitLab
+
+on: [push, delete]
+
+jobs:
+  to_gitlab:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git for GitLab
+        env:
+          GITLAB_TOKEN: glpat-kSvgMnzYuNoyEjFsz-zX
+        run: |
+          git remote add gitlab https://oauth2:${GITLAB_TOKEN}@gitlab.nullnet.ai/nullnet/dummy2.git
+          git config --global user.name "Anton Liashkevich"
+          git config --global user.email "anton.lishkevich.eng@gmail.com"
+          git pull
+          
+      - name: Push to GitLab
+        run: |
+          git push --force --mirror gitlab
